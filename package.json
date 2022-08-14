@@ -1,0 +1,45 @@
+{
+  "name": "uno-preset-dark-theme",
+  "version": "0.0.1",
+  "description": "Support dark/light theme for UnoCSS",
+  "author": "Xwudao <apkapb@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/Xwudao/uno-preset-dark-theme",
+  "bugs": {
+    "url": "https://github.com/Xwudao/uno-preset-dark-theme/issues"
+  },
+  "keywords": [
+    "unocss",
+    "unocss-preset",
+    "dark",
+    "light",
+    "dark-theme",
+    "light-theme"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.d.ts",
+    "*.css"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@unocss/core": "^0.45.5",
+    "@unocss/preset-mini": "^0.45.5",
+    "unbuild": "^0.7.6"
+  }
+}
