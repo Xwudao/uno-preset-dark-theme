@@ -58,7 +58,6 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
   };
 
   const theme = recursiveTheme(mergeDeep(dark, light));
-  console.log(theme);
 
   return {
     name: "@unocss/preset-theme",
