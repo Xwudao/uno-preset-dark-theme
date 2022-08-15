@@ -34,6 +34,19 @@ export default defineConfig({
 });
 ```
 
+## usage
+
+```tsx
+// default: light
+<body>
+  <div className="bg-xxx"></div>
+</body>
+// default: dark
+<body data-theme='dark'>
+  <div className="bg-xxx"></div>
+</body>
+```
+
 ### arco palette
 
 Now, support arco palette.

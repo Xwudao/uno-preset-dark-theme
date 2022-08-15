@@ -1,6 +1,6 @@
 {
   "name": "uno-preset-dark-theme",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Support dark/light theme for UnoCSS",
   "author": "Xwudao <apkapb@gmail.com>",
   "license": "MIT",
