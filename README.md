@@ -9,23 +9,24 @@ pnpm i uno-preset-dark-theme -D
 ```ts
 export default defineConfig({
   rules: [],
-  theme: {
-    dark: {
-      colors: {
-        primary: "#e67e22",
-        black: "#17171a",
-      },
-    },
-    light: {
-      colors: {
-        primary: "#e67e22",
-        black: "#17171a",
-      },
-    },
-  },
+  theme: {},
   presets: [
     presetTheme({
       element: "body",
+      theme: {
+        dark: {
+          colors: {
+            primary: "#e67e22",
+            black: "#17171a",
+          },
+        },
+        light: {
+          colors: {
+            primary: "#e67e22",
+            black: "#17171a",
+          },
+        },
+      },
     }),
     // other preset, such as PresetWind
     // but, this preset should be used with other presets
