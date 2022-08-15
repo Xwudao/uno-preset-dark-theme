@@ -37,6 +37,7 @@
   ],
   "scripts": {
     "build": "unbuild",
+    "test": "vitest dev ",
     "stub": "unbuild --stub"
   },
   "dependencies": {
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.7.3"
+    "@types/node": "^18.7.3",
+    "vitest": "^0.21.1"
   }
 }

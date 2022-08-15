@@ -14,36 +14,19 @@ export interface PresetTheme {
   // eg: body{--var-name:'#fff'}
   //     body[data-theme="dark"]{--var-name:'#000'}
   element?: string;
-  enableArco?: boolean;
-  // arco raw palette
-  arcoPalette?: string;
   // enforce
   enforce?: "pre" | "post";
 }
 
 export const presetTheme = (options: PresetTheme): Preset<Theme> => {
-  const {
-    prefix = "--un-preset-theme",
-    element = "body",
-    enableArco = false,
-    enforce,
-    arcoPalette,
-  } = options;
+  const { prefix = "--un-preset-theme", element = "body", enforce } = options;
   options.theme = options.theme || {};
-  if (enableArco) {
-    let data = arcoPalette ? JSON.parse(arcoPalette) : presetArcoPalette;
-    let formatedArcoPalette = formatArco(data as any);
-    options.theme = mergeDeep(options.theme, formatedArcoPalette);
-  }
+  // if (enableArco) {
+  //   let data = arcoPalette ? JSON.parse(arcoPalette) : presetArcoPalette;
+  //   let formatedArcoPalette = formatArco(data as any);
+  //   options.theme = mergeDeep(options.theme, formatedArcoPalette);
+  // }
   const { dark, light } = options.theme;
-  // const themeValues = new Map<
-  //   string,
-  //   {
-  //     light?: string;
-  //     dark?: string;
-  //   }
-  // >();
-  // const varsRE = new RegExp(`var\\((${prefix}.*)\\)`);
 
   const lightPreflightCss: string[] = [];
   const darkPreflightCss: string[] = [];

@@ -1,4 +1,5 @@
 import { mergeDeep } from "@unocss/core";
+import { parseColor, parseCssColor } from "@unocss/preset-mini/utils";
 type Colors = Record<string, string | Record<string, string>>;
 const processPalette = (
   palette: Record<"dark" | "light", Colors>,
@@ -14,7 +15,7 @@ const processPalette = (
       theme = theme[key];
       if (theme === undefined) return;
     }
-    return theme;
+    return parseCssColor(theme)?.components || "";
   };
 
   const recursiveTheme = (
@@ -38,15 +39,14 @@ const processPalette = (
         recursiveTheme(val, nextKeys);
       }
     });
-    return {
-      theme,
-      css: `${element}{${lightPreflightCss.join(";")}}\n
-      ${element}[data-theme='dark']{${darkPreflightCss.join(";")}}`,
-    };
+    return theme;
   };
 
-  const theme = recursiveTheme(mergeDeep(dark, light));
-  return theme;
+  return {
+    colors: recursiveTheme(mergeDeep(dark, light)),
+    css: `${element}{${lightPreflightCss.join(";")}}\n
+    ${element}[data-theme='dark']{${darkPreflightCss.join(";")}}`,
+  };
 };
 
 export { processPalette };
