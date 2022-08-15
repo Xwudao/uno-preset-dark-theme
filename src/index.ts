@@ -17,6 +17,8 @@ export interface PresetTheme {
   enableArco?: boolean;
   // arco raw palette
   arcoPalette?: string;
+  // enforce
+  enforce?: "pre" | "post";
 }
 
 export const presetTheme = (options: PresetTheme): Preset<Theme> => {
@@ -24,6 +26,7 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
     prefix = "--un-preset-theme",
     element = "body",
     enableArco = false,
+    enforce,
     arcoPalette,
   } = options;
   options.theme = options.theme || {};
@@ -80,6 +83,7 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
   const theme = recursiveTheme(mergeDeep(dark, light));
   return {
     name: "@unocss/preset-theme",
+    enforce,
     theme: { ...theme },
     preflights: [
       {
