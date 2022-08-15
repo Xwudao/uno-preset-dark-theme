@@ -1,6 +1,10 @@
 import type { Preset } from "@unocss/core";
 import { mergeDeep } from "@unocss/core";
 import type { Theme } from "@unocss/preset-mini";
+import fs from "fs-extra";
+import path from "path";
+import presetArcoPalette from "./data/arco-palette.json";
+import { formatArco } from "./format";
 export interface PresetTheme {
   // theme object
   theme: Record<"dark" | "light", Theme>;
@@ -10,10 +14,24 @@ export interface PresetTheme {
   // eg: body{--var-name:'#fff'}
   //     body[data-theme="dark"]{--var-name:'#000'}
   element?: string;
+  enableArco?: boolean;
+  // arco raw palette
+  arcoPalette?: string;
 }
 
 export const presetTheme = (options: PresetTheme): Preset<Theme> => {
-  const { prefix = "--un-preset-theme", element = "body" } = options;
+  const {
+    prefix = "--un-preset-theme",
+    element = "body",
+    enableArco = false,
+    arcoPalette,
+  } = options;
+  options.theme = options.theme || {};
+  if (enableArco) {
+    let data = arcoPalette ? JSON.parse(arcoPalette) : presetArcoPalette;
+    let formatedArcoPalette = formatArco(data as any);
+    options.theme = mergeDeep(options.theme, formatedArcoPalette);
+  }
   const { dark, light } = options.theme;
   // const themeValues = new Map<
   //   string,
@@ -50,6 +68,8 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
         darkPreflightCss.push(`${varName}: ${getTheme(dark, nextKeys)}`);
 
         theme[key] = `var(${varName})`;
+        const short = +key / 100; // eg: 800 -> 8
+        if (short === Math.round(short)) theme[short] = theme[key];
       } else {
         recursiveTheme(val, nextKeys);
       }
@@ -58,7 +78,6 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
   };
 
   const theme = recursiveTheme(mergeDeep(dark, light));
-
   return {
     name: "@unocss/preset-theme",
     theme: { ...theme },
