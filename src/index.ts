@@ -19,6 +19,8 @@ export interface PresetTheme {
   arcoPalette?: string;
   // enforce
   enforce?: "pre" | "post";
+  //pure class, if you used unocss with other ui components, you can use their css variables
+  pureCssVariables?: Theme["colors"];
 }
 
 export const presetTheme = (options: PresetTheme): Preset<Theme> => {
@@ -36,6 +38,7 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
     options.theme = mergeDeep(options.theme, formatedArcoPalette);
   }
   const { dark, light } = options.theme;
+  const { pureCssVariables } = options;
   // const themeValues = new Map<
   //   string,
   //   {
@@ -84,7 +87,7 @@ export const presetTheme = (options: PresetTheme): Preset<Theme> => {
   return {
     name: "@unocss/preset-theme",
     enforce,
-    theme: { ...theme },
+    theme: { ...theme, colors: { ...theme.colors, ...pureCssVariables } },
     preflights: [
       {
         layer: "theme",

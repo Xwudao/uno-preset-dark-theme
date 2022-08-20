@@ -1,6 +1,6 @@
 {
   "name": "uno-preset-dark-theme",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Support dark/light theme for UnoCSS",
   "author": "Xwudao <apkapb@gmail.com>",
   "license": "MIT",
@@ -37,7 +37,8 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "stub": "unbuild --stub"
+    "stub": "unbuild --stub",
+    "test": "vitest"
   },
   "dependencies": {
     "@unocss/core": "^0.45.5",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.7.3"
+    "@types/node": "^18.7.3",
+    "vitest": "^0.22.1"
   }
 }
