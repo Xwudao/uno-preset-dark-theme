@@ -9,6 +9,7 @@ const processPalette = (
   const { dark, light } = palette;
   const lightPreflightCss: string[] = [];
   const darkPreflightCss: string[] = [];
+  const varNameList: string[] = [];
 
   const getTheme = (theme: any, keys: string[]) => {
     for (const key of keys) {
@@ -31,6 +32,7 @@ const processPalette = (
 
         lightPreflightCss.push(`${varName}: ${getTheme(light, nextKeys)}`);
         darkPreflightCss.push(`${varName}: ${getTheme(dark, nextKeys)}`);
+        varNameList.push(varName);
 
         theme[key] = `var(${varName})`;
         const short = +key / 100; // eg: 800 -> 8
@@ -46,6 +48,7 @@ const processPalette = (
     colors: recursiveTheme(mergeDeep(dark, light)),
     css: `${element}{${lightPreflightCss.join(";")}}\n
     ${element}[data-theme='dark']{${darkPreflightCss.join(";")}}`,
+    varNameList: varNameList,
   };
 };
 
